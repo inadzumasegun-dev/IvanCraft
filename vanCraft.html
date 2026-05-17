@@ -1,0 +1,663 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IvanCraft - Изделия из дерева ручной работы</title>
+    <style>
+        /* Общие стили */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            overflow: hidden;
+            padding: 0 20px;
+        }
+
+        h1, h2, h3 {
+            margin-bottom: 15px;
+            color: #5a4535; /* Темно-коричневый для заголовков */
+        }
+
+        p {
+            margin-bottom: 10px;
+        }
+
+        a {
+            color: #5a4535;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: #8b6b4a; /* Основной коричневый */
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #5a4535; /* Более темный коричневый */
+        }
+
+        .btn-secondary {
+            background-color: #ddd;
+            color: #333;
+        }
+
+        .btn-secondary:hover {
+            background-color: #ccc;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Шапка */
+        .main-header {
+            background-color: #fff;
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .main-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #5a4535;
+        }
+
+        .nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .nav li {
+            margin-left: 20px;
+        }
+
+        .nav a {
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        .nav a:hover {
+            color: #8b6b4a;
+            text-decoration: none;
+        }
+
+        .hero {
+            background-image: url('https://images.unsplash.com/photo-1518769195075-b1762233067e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80'); /* Пример фонового изображения */
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4); /* Полупрозрачный темный слой */
+        }
+
+        .hero .container {
+            position: relative; /* Чтобы контент был поверх затемнения */
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: white;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+        }
+
+        .hero .subtitle {
+            font-size: 20px;
+            margin-bottom: 30px;
+            color: #eee;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+
+        .hero-buttons .btn {
+            margin: 0 10px;
+        }
+
+        /* Вкладки */
+        .tabs {
+            padding: 50px 0;
+            background-color: #fff;
+            border-bottom: 1px solid #eee;
+        }
+
+        .tab-buttons {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 10px 25px;
+            cursor: pointer;
+            font-size: 18px;
+            margin: 0 10px;
+            transition: color 0.3s ease, border-bottom 0.3s ease;
+            border-bottom: 2px solid transparent;
+            color: #777;
+        }
+
+        .tab-btn.active {
+            color: #5a4535;
+            border-bottom-color: #8b6b4a;
+            font-weight: bold;
+        }
+
+        .tab-content {
+            text-align: center;
+        }
+
+        .tab-pane {
+            display: none; /* Скрываем все панели по умолчанию */
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .tab-pane.active {
+            display: block; /* Показываем активную панель */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .tab-pane h2 {
+            font-size: 36px;
+            margin-bottom: 25px;
+        }
+
+        .consultation-photo {
+            max-width: 300px;
+            margin: 20px auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .consultation-options {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .chat-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: bold;
+            transition: transform 0.2s ease;
+        }
+
+        .chat-link span {
+            font-size: 24px;
+        }
+
+        .chat-link.whatsapp {
+            background-color: #25d366;
+            color: white;
+        }
+        .chat-link.whatsapp:hover {
+            background-color: #1da951;
+            transform: scale(1.05);
+        }
+
+        .chat-link.telegram {
+            background-color: #0088cc;
+            color: white;
+        }
+        .chat-link.telegram:hover {
+            background-color: #005f90;
+            transform: scale(1.05);
+        }
+
+        .chat-link.viber {
+            background-color: #7E5EE3;
+            color: white;
+        }
+        .chat-link.viber:hover {
+            background-color: #5c3cb6;
+            transform: scale(1.05);
+        }
+
+        .consultation-form {
+            margin-top: 30px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .consultation-form input,
+        .consultation-form textarea {
+            width: calc(100% - 20px); /* Учитываем padding */
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .consultation-form textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .small-text {
+            font-size: 14px;
+            color: #777;
+            margin-top: 15px;
+        }
+
+        /* Секции */
+        .section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 40px;
+            margin-bottom: 40px;
+        }
+
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .catalog-item {
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+            padding-bottom: 20px;
+        }
+
+        .catalog-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .catalog-image {
+            width: 100%;
+            height: 220px; /* Фиксированная высота для изображений */
+            object-fit: cover; /* Масштабирование с сохранением пропорций */
+        }
+
+        .catalog-item h4 {
+            margin-top: 15px;
+            font-size: 22px;
+            color: #5a4535;
+        }
+
+        .catalog-item p {
+            padding: 0 20px;
+            color: #666;
+        }
+
+        /* Процесс */
+        .process .steps-container {
+            display: flex;
+            justify-content: space-around;
+            gap: 20px;
+            flex-wrap: wrap;
+            text-align: center;
+        }
+
+        .process .step {
+            flex: 1;
+            min-width: 220px;
+            padding: 20px;
+        }
+
+        .process .step-icon {
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            background-color: #8b6b4a;
+            color: white;
+            border-radius: 50%;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0 auto 15px auto;
+        }
+
+        .process .step h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        /* Контакты */
+        .contacts .contact-info {
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .contacts .contact-info strong {
+            color: #5a4535;
+        }
+
+        /* Подвал */
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Шапка -->
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">IvanCraft</div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="#about">О нас</a></li>
+                    <li><a href="#catalog">Каталог</a></li>
+                    <li><a href="#process">Процесс</a></li>
+                    <li><a href="#contacts">Контакты</a></li>
+                    <li><a href="#" id="consultation-btn"><strong>Консультация</strong></a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Главный экран -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Изделия из дерева <em>почти</em> ручной работы</h1>
+                <p class="subtitle">Создаём уникальные предметы интерьера с 1775 года</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary" data-tab="tab2">Посмотреть каталог</button>
+                    <button class="btn btn-secondary" data-tab="tab5">Рассчитать стоимость</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Вкладки (О нас, Каталог и т.д.) -->
+    <section id="about" class="tabs">
+        <div class="tab-buttons">
+            <button class="tab-btn active" data-tab="tab1">О нас</button>
+            <button class="tab-btn" data-tab="tab2">Каталог</button>
+            <button class="tab-btn" data-tab="tab3">Процесс</button>
+            <button class="tab-btn" data-tab="tab4">Контакты</button>
+            <button class="tab-btn" data-tab="tab5">Консультация</button>
+        </div>
+
+        <div class="tab-content">
+            <div id="tab1" class="tab-pane active">
+                <h2>О нашей мастерской</h2>
+                <p>Мы создаём уникальные изделия из дерева с 1775 года. Каждое изделие — это сочетание традиций и современных технологий.</p>
+                <p>Наша миссия — приносить уют и тепло в ваш дом через натуральные материалы и кропотливую работу.</p>
+            </div>
+
+            <div id="tab2" class="tab-pane">
+                <h2>Каталог изделий</h2>
+                <p>Мебель, сувениры, декор и игрушки ручной работы.</p>
+                <p><strong><a href="#catalog">Смотреть полный каталог</a></strong></p>
+            </div>
+
+            <div id="tab3" class="tab-pane">
+                <h2>Процесс изготовления</h2>
+                <p>Мы тщательно подходим к каждому этапу, чтобы гарантировать высокое качество:</p>
+                <ul>
+                    <li><strong>Выбор материала:</strong> Используем только проверенные, экологичные породы дерева.</li>
+                    <li><strong>Проектирование:</strong> Создаем 3D-модели по вашим пожеланиям.</li>
+                    <li><strong>Изготовление:</strong> Ручная работа с применением современного оборудования.</li>
+                    <li><strong>Финишная обработка:</strong> Специальные масла и лаки для долговечности и красоты.</li>
+                    <li><strong>Упаковка и доставка:</strong> Бережно доставляем изделие в ваш дом.</li>
+                </ul>
+            </div>
+
+            <div id="tab4" class="tab-pane">
+                <h2>Контакты</h2>
+                <p><strong>Адрес:</strong> г. Батайск, ул. Кирова, 18а</p>
+                <p><strong>Телефон:</strong> <a href="tel:+7999999999">+7 (999) 123-45-67</a></p>
+                <p><strong>Email:</strong> <a href="sblom740@yandex.ru">sblom740@yandex.ru</a></p>
+                <p><strong>График работы:</strong> Пн-вс,24/7</p>
+            </div>
+
+            <div id="tab5" class="tab-pane">
+                <h2>Закажите изделие или консультацию</h2>
+                <img src="https://avatars.mds.yandex.net/i?id=f236f819cf15db02b6952fafdb9ffb446dc8dada-4027989-images-thumbs&n=13" alt="Консультация" class="consultation-photo">
+                <p>Получите расчет стоимости или бесплатную консультацию:</p>
+                <div class="consultation-options">
+                    <a href="https://wa.me/79991234567?text=Здравствуйте!%20Хочу%20узнать%20стоимость%20изделия%20из%20дерева." target="_blank" class="chat-link whatsapp">
+                        <span>💬</span> WhatsApp
+                    </a>
+                    <a href="https://t.me/sb740oko?text=Здравствуйте!%20Хочу%20узнать%20стоимость%20изделия%20из%20дерева." target="_blank" class="chat-link telegram">
+                        <span>✈️</span> Telegram
+                    </a>
+                    <a href="viber://chat?number=79991234567" target="_blank" class="chat-link viber">
+                        <span>📱</span> Viber
+                    </a>
+                </div>
+                <p class="small-text">Или заполните форму, и мы свяжемся с вами в течение 15 минут</p>
+                <form class="consultation-form" onsubmit="alert('Спасибо за вашу заявку! Мы скоро свяжемся с вами.'); return false;">
+                    <input type="text" placeholder="Ваше имя" required>
+                    <input type="tel" placeholder="Ваш телефон" required>
+                    <textarea placeholder="Опишите, что вы хотите (например: стол, резная полка, детский стульчик)"></textarea>
+                    <button type="submit" class="btn btn-primary">Отправить заявку</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Каталог (Полный список) -->
+    <section id="catalog" class="section catalog">
+        <div class="container">
+            <h2 class="section-title">Наш каталог</h2>
+            <div class="catalog-grid">
+                <div class="catalog-item">
+                    <img src="https://avatars.mds.yandex.net/i?id=f34d368420b72242aed8d85014f8bb437dbb2ea9-5886828-images-thumbs&n=13" alt="Мебель" class="catalog-image">
+                    <h4>Стол обеденный</h4>
+                    <p>Массив дуба, ручная резьба, вырезали ложкой.</p>
+                </div>
+                <div class="catalog-item">
+                    <img src="https://avatars.mds.yandex.net/i?id=479e192245a761e605a017be04b3e7fb8ec23f96-10815658-images-thumbs&n=13" alt="Сувениры" class="catalog-image">
+                    <h4>Шкатулка для украшений</h4>
+                    <p>Резная, с мышиной шерстью.</p>
+                </div>
+                <div class="catalog-item">
+                    <img src="https://avatars.mds.yandex.net/i?id=038f1633401e1d92dfd73ac58ee366c1e63bfd92-5086874-images-thumbs&n=13" alt="Декор" class="catalog-image">
+                    <h4>Настенное панно</h4>
+                    <p>Стилизованное изображение лесного пейзажа.</p>
+                </div>
+                <div class="catalog-item">
+                    <img src="https://avatars.mds.yandex.net/i?id=9400226bf5044a93830213ec0fca44218d1ce091-9066083-images-thumbs&n=13" alt="Игрушки" class="catalog-image">
+                    <h4>Конструктор-домик</h4>
+                    <p>Развивающая игрушка из (почти) безопасного дерева.</p>
+                </div>
+                <!-- Добавьте больше элементов каталога по необходимости -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Процесс -->
+    <section id="process" class="section process">
+        <div class="container">
+            <h2 class="section-title">Как мы работаем</h2>
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-icon">1</div>
+                    <h3>Обсуждение</h3>
+                    <p>Вы оставляете заявку или связываетесь с нами. Вместе определяем концепцию и детали.</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon">2</div>
+                    <h3>Дизайн</h3>
+                    <p>Создаем индивидуальный эскиз или 3D-модель, чтобы вы могли увидеть будущий результат.</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon">3</div>
+                    <h3>Изготовление</h3>
+                    <p>Наши мастера бережно изготавливают изделие, подбирая лучшие породы дерева и уделяя внимание каждой детали.</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon">4</div>
+                    <h3>Доставка</h3>
+                    <p>Аккуратно упаковываем готовое изделие и осуществляем доставку в удобное для вас время.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Контакты -->
+    <section id="contacts" class="section contacts">
+        <div class="container">
+            <h2 class="section-title">Свяжитесь с нами</h2>
+            <div class="contact-info">
+                <p><strong>Адрес:</strong> г.Батайск, ул. Кирова, 18а</p>
+                <p><strong>Телефон:</strong> <a href="tel:+799999999">+7 (999)999-99-99</a></p>
+                <p><strong>Email:</strong> <a href="sblom740@yandex.ru">sblom740@yandex.ru</a></p>
+                <p><strong>График:</strong> Пн-ВС, 24/7</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Подвал -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 1775-2026 IvanCraft. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Логика переключения вкладок
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const targetTab = this.getAttribute('data-tab');
+
+                // Скрыть все панели
+                document.querySelectorAll('.tab-pane').forEach(pane => {
+                    pane.classList.remove('active');
+                });
+
+                // Показать нужную панель
+                document.getElementById(targetTab).classList.add('active');
+
+                // Обновить активную кнопку
+                document.querySelectorAll('.tab-btn').forEach(b => {
+                    b.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
+        });
+
+        // Обработка кликов по навигации для плавной прокрутки
+        document.querySelectorAll('nav a[href^="#"], .hero-buttons button[data-tab], .tab-btn[data-tab]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                const dataTab = this.getAttribute('data-tab');
+
+                // Если это кнопка-переключатель вкладок
+                if (dataTab) {
+                    e.preventDefault(); // Предотвращаем стандартное действие, если оно есть
+                    // Активируем нужную вкладку
+                    document.querySelector(`.tab-btn[data-tab="${dataTab}"]`).click();
+                    // Если есть якорь, то прокручиваем к нему
+                    if (href && href !== '#' && document.querySelector(href)) {
+                        document.querySelector(href).scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                } 
+                // Если это обычная ссылка-якорь
+                else if (href && href !== '#' && href.startsWith('#')) {
+                    e.preventDefault(); // Предотвращаем стандартное действие
+                    const targetElement = document.querySelector(href);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                        // Если якорь ведет к секции с вкладками, то нужно активировать нужную вкладку
+                        if (href === '#about') {
+                            document.querySelector('.tab-btn[data-tab="tab1"]').click();
+                        } else if (href === '#catalog' && document.querySelector('.tab-btn[data-tab="tab2"]')) {
+                             // При прокрутке к #catalog, выбираем вкладку "Каталог"
+                             document.querySelector('.tab-btn[data-tab="tab2"]').click();
+                        }
+                    }
+                }
+            });
+        });
+
+        // Кнопка "Заказать" в шапке
+        const consultationBtn = document.getElementById('consultation-btn');
+        if (consultationBtn) {
+            consultationBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                // Переключаем на вкладку "Консультация"
+                const tab5Button = document.querySelector('.tab-btn[data-tab="tab5"]');
+                if (tab5Button) {
+                    tab5Button.click();
+                }
+                // Прокручиваем к секции вкладок
+                const tabsSection = document.querySelector('.tabs');
+                if (tabsSection) {
+                    tabsSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        }
+    </script>
+</body>
+</html>
